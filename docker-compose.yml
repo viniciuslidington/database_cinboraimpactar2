@@ -1,0 +1,41 @@
+services:
+  db:
+    image: mongo
+    container_name: cinconecta-db
+    expose:
+      - 27017:27017
+    ports:
+      - 27017:27017
+    volumes:
+      - /opt/mongodb/data:/data/db
+    
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+    networks:
+      - boraimpactar
+
+  # PostgreSQL (Mantém a configuração original)
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: postgres
+    environment:
+      POSTGRESQL_USERNAME: docker
+      POSTGRESQL_PASSWORD: docker
+      POSTGRESQL_DATABASE: bi_banco
+    volumes:
+      - pgdata:/bitnami/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docker -d bi_banco"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - boraimpactar
+
+volumes:
+  pgdata:
+
+networks:
+  boraimpactar:
+    external: true
