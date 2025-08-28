@@ -14,21 +14,20 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: pass
     networks:
       - boraimpactar2
-
-  # PostgreSQL (Mantém a configuração original)
   postgres:
     image: bitnami/postgresql:latest
     container_name: cinboraimpactar-db-postgres
     expose:
       - 5432:5432
-    environment:
-      POSTGRESQL_USERNAME: docker
-      POSTGRESQL_PASSWORD: docker
-      POSTGRESQL_DATABASE: bi_banco
+    environment: 
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: postgres
+      POSTGRESQL_DATABASE: postgres
     volumes:
-      - pgdata:/bitnami/postgresql
+      - pgdata:/bitnami/postgresql-
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U docker -d bi_banco"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -41,4 +40,3 @@ volumes:
 networks:
   boraimpactar2:
     external: true
-      
