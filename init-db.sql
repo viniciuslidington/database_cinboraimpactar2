@@ -28,7 +28,7 @@ GRANT ALL PRIVILEGES ON DATABASE cintegre TO cintegreuser;
 -- Conceder permissões no schema public do connect_ong
 ALTER DATABASE connect_ong OWNER TO connect_ong_user;
 ALTER DATABASE hubdedoacao OWNER to hubuser;
-ALTER DATABASE hubdedoacao OWNER to lojasocialuser;
+ALTER DATABASE lojasocial OWNER to lojasocialuser;
 ALTER DATABASE escolaong OWNER TO escolaonguser;
 ALTER DATABASE cintegre OWNER TO cintegreuser;
 
